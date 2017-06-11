@@ -17,7 +17,9 @@ import Vuelidate from 'vuelidate'
 import moment from 'moment'
 import Cleave from 'vue-cleave'
 import VuexForm from 'vuex-form'
-
+import VueTabs from 'vue-nav-tabs'
+import 'vue-nav-tabs/dist/vue-tabs.min.css'
+Vue.use(VueTabs)
 Vue.use(Quasar) // Install Quasar Framework
 Vue.component('nav-bar', require('./components/NavBar.vue'))
 Vue.component('cart-page', require('./components/CartPage.vue'))

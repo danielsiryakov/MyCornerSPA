@@ -280,9 +280,9 @@
         set (value) { this.$store.commit('update_store', {description: value}) }
       },
       phoneNumber: {
-        get () { return this.$store.state.storeInfo.store.phoneNumber },
+        get () { return this.$store.state.storeInfo.store.phone },
         set (value) {
-          this.$store.commit('update_store', {phoneNumber: value.trim()})
+          this.$store.commit('update_store', {phone: value.trim()})
           this.StepTwoForm.phone = value
         }
       },

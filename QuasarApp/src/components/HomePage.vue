@@ -6,8 +6,8 @@
       <button @click="$refs.leftDrawer.open()">
         <i>menu</i>
       </button>
-
-      <div id="logo"><img src="../assets/fulllogo.jpg" alt="Homepage" ></div>
+      <router-link to="/" id="logo"><img src="../assets/fulllogo.jpg"></router-link>
+      <!--<div id="logo"><img src="../assets/fulllogo.jpg" alt="Homepage" route="/"></div>-->
 
       <button class="big" @click="$refs.rightDrawer.open()">
         <i>shopping_cart</i>
@@ -19,7 +19,7 @@
     </div>
 
 
-    <q-tabs class ="inverted primary mobile-only" slot="navigation">
+    <q-tabs class ="inverted primary mobile-only text-dark" slot="navigation">
       <q-tab icon="home" route="/"></q-tab>
       <q-tab icon="search" route="/stores_result" ></q-tab>
       <q-tab icon="view_day" route="/test" ></q-tab>
@@ -30,28 +30,38 @@
 
     <q-drawer class="left-side swipe-only" ref="leftDrawer">
       <div class="toolbar light">
-        <q-toolbar-title :padding="1">
-          MyCorner
-        </q-toolbar-title>
+          <button class="outline text-bold primary width-2of5" @click="formTab='login', $refs.logInSignUp.open()">Login</button>
+          <button class="outline text-bold primary width-2of5" @click="formTab='signup', $refs.logInSignUp.open()">Sign Up</button>
       </div>
 
-      <div class="list no-border platform-delimiter">
-        <q-drawer-link icon="home" to="/" exact>
-          Home
-        </q-drawer-link>
-        <hr>
-        <div class="list-label">Other Tools</div>
-        <q-drawer-link icon="business" :to="{path: '/store-sign-up', exact: true}">
-          Are you a local business?
-        </q-drawer-link>
-        <q-drawer-link icon="tab" to="/showcase/layout/tabs">
-          Tabs
-        </q-drawer-link>
-        <q-drawer-link icon="compare_arrows" to="/showcase/layout/drawer">
-          Layout Drawer
-        </q-drawer-link>
+      <div class="list group highlight item-delimiter">
+        <q-drawer-link icon="business" :to="{path: '/store-sign-up', exact: true}">Are you a local business?</q-drawer-link>
+        <q-drawer-link icon="tab" to="/stores">About</q-drawer-link>
+        <q-drawer-link icon="compare_arrows" to="/stores">Contact Us</q-drawer-link>
       </div>
     </q-drawer>
+
+    <q-modal ref="logInSignUp" class="" :content-css="{minWidth: '60vw', minHeight: '80vh'}">
+      <h4><i class="text-primary float-left" style="padding-left: 20px" @click="$refs.logInSignUp.close()">close</i></h4>
+
+
+      <q-tabs
+        class="justified"
+        :refs="$refs"
+        v-model="formTab"
+      >
+        <q-tab name="login">
+          Log In
+        </q-tab>
+        <q-tab name="signup">
+          Sign Up
+        </q-tab>
+      </q-tabs>
+      <!-- Targets -->
+      <div ref="login"><login></login></div>
+      <div ref="signup"><sign-up></sign-up></div>
+    </q-modal>
+
     <q-drawer right-side swipe-only ref="rightDrawer">
       <div class="toolbar light">
         <q-toolbar-title :padding="1">
@@ -66,7 +76,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-
+  import Login from './Login.vue'
+  import SignUp from './Signup.vue'
   export default {
     mounted () {
       this.getAllProducts()
@@ -80,12 +91,22 @@
       ...mapActions([
         'getAllProducts'
       ])
+    },
+    components: {
+      Login,
+      SignUp
+    },
+    data () {
+      return {
+        formTab: 'login'
+      }
     }
   }
 </script>
 
 <style>
   #logo {
+    background-image: url("../assets/fulllogo.jpg");
     padding-top: 2px;
     height:3rem;
     /* delete this property if you don't want your logo to scale down on mobile devices */
@@ -95,6 +116,24 @@
     -o-transform: scale(0.8);
     transform: scale(0.8);
   }
+  .tab-group {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
 
+  &
+  :after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  }
+
+  .siginup {
+    /*padding-left: 50px;*/
+    /*padding-right: 50px;*/
+    /*padding-bottom: 50px;*/
+  }
 
 </style>

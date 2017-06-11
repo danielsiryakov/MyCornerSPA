@@ -1,22 +1,16 @@
 const state = {
   user: {
+    user_id: '',
     email: '',
     username: '',
     password: '',
-    store_categories: [],
-    all_store_categories: [
-      // later use in auto complete
-      'Food',
-      'Clothing',
-      'Technology',
-      'Entertainment',
-      'Hardware',
-      'Other'
-    ]
+    store_categories: []
   },
   store: {
+    store_id: '',
     name: '',
-    phoneNumber: '',
+    image: '',
+    phone: '',
     address: {
       administrative_area_level_1: '',
       country: '',
@@ -26,7 +20,6 @@ const state = {
       route: '',
       street_number: ''
     },
-    image: '',
     hovering: false,
     working_hours: [
       {day: 'Sunday', from: '09:00', to: '17:00'},
@@ -40,7 +33,7 @@ const state = {
     keywords: [],
     description: '',
     pickup: {
-      service_offered: false,
+      offered: false,
       pickUpItems: {
         min: 0,
         max: 100
